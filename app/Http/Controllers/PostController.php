@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -35,7 +35,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create([
+          'title' => $request->post('title'),
+          'body' => $request->post('body'),
+          'user_id' => auth()->user()->id
+        ]);
+        return redirect(route('home'));
     }
 
     /**
@@ -57,7 +62,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+      return view('post.edit')->with(['post'=>$post]);
     }
 
     /**
@@ -69,7 +74,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->title = $request->post('title');
+        $post->body = $request->post('body');
+        $post->save() ;
+        return redirect(route('home')) ;
     }
 
     /**
@@ -80,6 +88,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect(route('home')) ;
     }
 }

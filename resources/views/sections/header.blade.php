@@ -25,42 +25,40 @@
 
 
         <div class="">
-            <h1><a id="headText" href="{{ route('dashboard') }}" style="" class="display-2 text-primary text-decoration-none" > KAT </a></h1>
+            <h1><a id="headText" href="{{ route('home') }}" style="" class="display-2 text-primary text-decoration-none" > KAT </a></h1>
         </div>
 
         <div class="">
-          <?php
-          if(isset($_SESSION['username'])){
-            echo '
+          @if($user)
             <a class="" href="#" data-toggle="collapse" data-target="#collapsibleNavbar">
-              <img class="prof bg-light border border-primary border-4 " src="/include/upload/'.$prof.'?nocache='.time().' " alt="Profile picture" style=";">
+              <img class="prof bg-light border border-primary border-4 " src="{{ $user->profile }}" alt="Profile picture" style=";">
             </a>
-              ';
-          }
-          ?>
+          @endif
         </div>
       </div>
 
+      @if($user)
       <div class="collapse navbar-collapse " id="collapsibleNavbar">
         <hr/>
         <ul class="container-fluid navbar-nav justify-content-end">
           <li class="nav-item col-sm-6">
-            <h4 class="text-primary" href="../newPost.php">Welcome <b>{{ $user->first_name }}</b> </h4>
+            <h4 class="text-primary">Welcome <b>{{ $user->user_name }}</b> </h4>
           </li>
           <div class="" style="width:200px;">
             <hr/>
           </div>
           <li class="nav-item  col-sm-5">
-            <a class="nav-link text-primary spinow" href="../newPost.php">Add new Post</a>
+            <a class="nav-link text-primary spinow" href="{{ route('post.create') }}">Add new Post</a>
           </li>
           <li class="nav-item  col-sm-2">
-            <a class="nav-link text-primary spinow" href="/include/logout.php">Logout</a>
+            <a class="nav-link text-primary spinow" href="{{ route('auth.logout') }}">Logout</a>
           </li>
           <li class="nav-item  col-sm-5">
-            <a class="nav-link text-primary spinow" href="/accManage.php">Account management</a>
+            <a class="nav-link text-primary spinow" href="{{ route('user.dashboard') }}">Account management</a>
           </li>
         </ul>
       </div>
+      @endif
     </header>
   </body>
 </html>
