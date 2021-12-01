@@ -48,4 +48,5 @@ Route::name('auth.')->group( function () {
   Route::get('/logout', [AuthController::class,'logout'])->name('logout');
 });
 
+Route::post('/comment/submit', [CommentController::class,'store'])->name('comment.submit');
 Route::get('/{user:user_name}', [HomeController::class,'show'])->name('author');
