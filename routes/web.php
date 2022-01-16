@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController ;
 use App\Http\Controllers\CommentController ;
 use App\Http\Controllers\AuthController ;
 use App\Http\Controllers\UserController ;
+use Illuminate\Support\Facades\Artisan ;
 use App\Models\User ;
 use App\Models\Post ;
 
@@ -50,3 +51,14 @@ Route::name('auth.')->group( function () {
 
 Route::post('/comment/submit', [CommentController::class,'store'])->name('comment.submit');
 Route::get('/{user:user_name}', [HomeController::class,'show'])->name('author');
+
+Route::name('artisan.')->prefix('artisan')->group( function () {
+  Route::get('migrate', function () {
+    Artisan::call('migrate');
+    return nl2br(Artisan::output());
+  })->name('migrate');
+  Route::get('fresh', function () {
+    Artisan::call('migrate:fresh');
+    return nl2br(Artisan::output());
+  })->name('fresh');
+});

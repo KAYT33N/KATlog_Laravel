@@ -18,6 +18,6 @@ class Authentication
     {
       if(auth()->check())
         return $next($request);
-      return redirect(route('home')) ;
+      return redirect(route('auth.login')) ;
     }
 }
